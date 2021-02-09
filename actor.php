@@ -17,7 +17,6 @@
 $id = intval($_GET["id"]);
 // echo "ans is $id"; 
 
-
 $db = new mysqli('localhost', 'cs143', '', 'cs143');
 if ($db->connect_errno > 0) { 
     die('Unable to connect to database [' . $db->connect_error . ']'); 
@@ -28,20 +27,10 @@ echo "<br><h1> Actor information </h1><br>";
 echo " <br>";
 print '<h2> Actor is:   </h2>';
 $query = "select * from Actor where id= ".$id."; ";
-// print "$query <br><br>";
-// foreach ($search as $word) {
-//     $sanitized_name = $db->real_escape_string($word);
-//     $query .= " AND (first like '%$sanitized_name%' or last like '%$sanitized_name%') ";
-// }
-// $query .= " order by first, last";
-// var_dump($query);
+
 $rs = $db->query($query);
-// var_dump($rs);
-// $rs = $db->query("select * from Actor where id= 17950;");
-// echo "hi";
-// echo "answer for  <br>". $query ."<br>";
+
 print " <br><br>";
-// echo "<h2>first last  "."    &emsp;&emsp;       " ."sex    &emsp;&emsp;      "."dob    &emsp;&emsp;      "."dod </h2><br>";
 print " <br><br>";
 $row = $rs->fetch_assoc();
 
@@ -53,14 +42,8 @@ $dod = $row['dod'];
 else
 $dod = "Still Alive";
 
-// $out.=  "->".$row['dob'] ."   &emsp;&emsp;      ".  "->".$dod ."    &emsp;&emsp;     . <br>";
 $out.=  " dob: ".$row['dob'] ."   &emsp;&emsp;     <br> ".  "dod: ".$dod ."    &emsp;&emsp;      <br>";
 echo  "<h2>".$out .'</h2><br> ';
-// echo '<a href=actor.php?id='.$row["id"].' >'. $out . "</a>";
-
-// last | first | sex  | dob        | dod  ;
-
-
 
 echo " <br>";
 print '<h3>Total results: </h3>' . $rs->num_rows;

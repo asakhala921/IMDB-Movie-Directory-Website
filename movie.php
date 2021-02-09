@@ -18,7 +18,6 @@
 $id = intval($_GET["id"]);
 // echo "ans is $id"; 
 
-
 $db = new mysqli('localhost', 'cs143', '', 'cs143');
 if ($db->connect_errno > 0) { 
     die('Unable to connect to database [' . $db->connect_error . ']'); 
@@ -28,52 +27,33 @@ if ($db->connect_errno > 0) {
 echo "<br><h1> Movie information </h1><br>";
 echo " <br>";
 print '<h2> Movie is:   </h2>';
+
 // $query = "
 //     select Movie.title, Movie.year, Movie.rating, Movie.company,
 //         MovieGenre.genre, 
 //         Director.last, Director.first, Director.dob, 
 //         AVG(Review.rating)
-
 //     from Movie, MovieGenre, MovieDirector, Director, Review
-
 //     where Movie.id=$id and MovieGenre.mid=$id and MovieDirector.mid=$id and Review.mid =$id and
 //     MovieDirector.did=Director.id 
-    
 //  ; ";
+
 $query = "
 select title, year, rating, company
 from Movie
 where id=$id 
 ; ";
-// print "$query  endq.<br><br>";
-// foreach ($search as $word) {
-//     $sanitized_name = $db->real_escape_string($word);
-//     $query .= " AND (first like '%$sanitized_name%' or last like '%$sanitized_name%') ";
-// }
-// $query .= " order by first, last";
-// var_dump($query);
+
 $rs = $db->query($query);
 if (!$rs) {
     $errmsg = $db->error; 
     print "Query failed: $errmsg <br>"; 
     exit(1); 
 }
-// var_dump($rs);
-// print_r($rs);
-// $rs = $db->query("select * from Actor where id= 17950;");
-// echo "hi";
-// echo "answer for  <br>". $query ."<br>";
+
 print " <br><br>";
-// echo "<h2>first last  "."    &emsp;&emsp;       " ."sex    &emsp;&emsp;      "."dob    &emsp;&emsp;      "."dod </h2><br>";
 print " <br><br>";
 $row = $rs->fetch_assoc();
-
-// Movie.title, Movie.year, Movie.rating, Movie.company,
-//         MovieGenre.genre, 
-//         Director.last, Director.first, Director.dob, 
-//         AVG(Review.rating)
-// print_r($row);
-// print $row['AVG(Review.rating)']."title";
 
 $name = $row['title'];
 $out = "<h2><br> Title: ". $name." ( ".$row['year']." )<br>Producing company: ".$row['company']."<br>MPAA Rating: ".$row['rating'];
@@ -107,22 +87,11 @@ $row = $rs->fetch_assoc();
 $count = $row['count(rating)'];
 
 if ($row['AVG(rating)'])
-$rating = $row['AVG(rating)']." based on ".$count ." reviews";
+    $rating = $row['AVG(rating)']." based on ".$count ." reviews";
 else
-$rating = "No reviews yet";
+    $rating = "No reviews yet";
 $out .= " ".$rating." </h2><br>";
-// $out .= $name."    &emsp;&emsp;       ";
-// $out.=  $row['sex']."    &emsp;&emsp;       ";
-// $out.=  "->".$row['dob'] ."   &emsp;&emsp;      ".  "->".$row['dod'] ."    &emsp;&emsp;     . <br>";
 print  $out .'<br> ';
-// echo '<a href=actor.php?id='.$row["id"].' >'. $out . "</a>";
-
-// last | first | sex  | dob        | dod  ;
-
-
-
-
-// SHOW ALL ACTORS COMMENTS AND ADD C
 
 echo " <br>";
 print '<h3>Total results: </h3>' . $rs->num_rows;
@@ -149,38 +118,21 @@ echo " <br>";
 print '<h3>Total results: </h3>' . $rs->num_rows;
 
 
-
-
-
-
-
-
-
 echo "<h2><br>User Reviews : </h2><br>";
 if ($count > 0){
     $query = "select *
         from Review
         where mid=$id
         order by time;";
+
     $rs = $db->query($query);
-
-    // name     VARCHAR(20),
-    // time     DATETIME,
-    // mid     INT,
-    // rating     INT,
-    // comment    TEXT
-
     print " <br><br>";
-    // echo "<h2>Name  "."    &emsp;&emsp;       " ."Role   &emsp;&emsp;       </h2><br>";
-    // print " <br><br>";
 
     if (mysqli_num_rows($rs) > 0){
         while ($row = $rs->fetch_assoc()){
 
             $out = "Name: ".$row["name"]."<br> "."Time: ".$row["time"]."<br> "."Rating: ".$row["rating"]."<br> "."Comment: ".$row["comment"]."<br> " ;
             echo  $out;
-            // echo "<h2>Name  "."    &emsp;&emsp;       " ."Role   &emsp;&emsp;       </h2><br>";
-
             print " <br><br>";
         }
     }

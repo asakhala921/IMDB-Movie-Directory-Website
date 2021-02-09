@@ -2,17 +2,7 @@
 <head><title>CS143 MySQL-Apache Container</title>
 <style>
 body {
-    /* background-image: url('http://i.stack.imgur.com/kx8MT.gif'); */
-    /* background-image: url('https://media.giphy.com/media/dvm7OLMc4BYsq9rIXE/giphy.gif'); */
-    /* height: 100vh;
-    padding:0;
-    margin:0; */
-    /* http://tenor.com/4FRO.gif */
-    /* background-size: cover; */
-    /* background-image:url(download.jpeg); */
-    /* background-image:url(racoon.gif); */
     background-repeat: no-repeat;
-    /* background-size: 75%; */
 }
 </style>
 </head>
@@ -30,10 +20,8 @@ body {
 <h1 style="font-size:40px; color:blue">Movie Directory</h1> 
 
 <form  method="get" action="search.php"> 
-<!-- // action="actor.php" -->
-  =>                    Search for actors or movies by name:    
+<h1>  =>                    Search for actors or movies by name:    </h1>
     <input type="text" name="search_str" required><br>
-   <!-- <input type="text" id="username" name="username" required> -->
 <input type="submit">
 </form>
 
